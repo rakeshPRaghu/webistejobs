@@ -1,4 +1,4 @@
-const fetch = require("node-fetch");
+var request = require('request');
 const fs = require('fs');
 
 const url = "https://openebs.devstats.cncf.io/api/ds/query";
@@ -39,20 +39,28 @@ const reqBodyToFetchContributors = {
 };
 
 const settings = {
+    url  : "https://openebs.devstats.cncf.io/api/ds/query",
     method: "POST",
+    json: true,
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(reqBodyToFetchContributors),
+    body: reqBodyToFetchContributors
   };
 function loadNew(){
-    fetch(url, settings)
-    .then((res) => res.json())
-    .then((json) => {
-        console.log(json?.results?.A?.frames[0]?.data?.values[1]);
-        const data = JSON.stringify(json?.results?.A?.frames[0]?.data?.values[1])
-        fs.writeFileSync('src/resources/contributors.json',data);
-    });
+    request.post(settings,function (error, response, body){
+          console.log(body?.results?.A?.frames[0]?.data?.values[1]);
+          const data = JSON.stringify(body?.results?.A?.frames[0]?.data?.values[1])
+          fs.writeFileSync('src/resources/contributors.json',data);
+  });
+  
+    // .then((res) => res.json())
+    // .then((json) => {
+    //     console.log(json?.results?.A?.frames[0]?.data?.values[1]);
+    //     const data = JSON.stringify(json?.results?.A?.frames[0]?.data?.values[1])
+    //     fs.writeFileSync('src/resources/contributors.json',data);
+    // });
+    
     
 }
 
