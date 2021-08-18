@@ -49,9 +49,9 @@ jobs:
       - name: commit changed files
         run: git commit -m "Auto updating TODO.txt"
       - name: fetch from master
-        run: git fetch origin master
-      - name: push code to master
-        run: git push origin HEAD:master
+        run: git fetch origin main
+      - name: push code to main
+        run: git push origin HEAD:main
       #- name: Update resources
        # uses: test-room-7/action-update-file@v1
         #with:
