@@ -1,31 +1,20 @@
-# This is a basic workflow to help you get started with Actions
+name: Fetch contributors list of openebs and write into json
 
-name: CI
-
-
-
-# Controls when the workflow will run
 on:
-
   schedule:
-    - cron: '*/10 * * * *'
-# Triggers the workflow on push or pull request events but only for the main branch
+    - cron: '*/10 * * * *' #job schedule on midnight everyday
   push:
     branches: [ main ]
+    paths: ['./website/src/resources/contributors.json']
   pull_request:
     branches: [ main ]
 
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
   resources:
-    name: Update resources
-    # The type of runner that the job will run on
+    name: Update resource
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js
@@ -37,38 +26,15 @@ jobs:
       - name: Run a one-line script
         working-directory: ./website
         run: npm run getContributors
-      - name: switching from HTTPS to SSH
-        run: git remote set-url origin ${{ secrets.ssh }}
-      - name: check for changes
+      - name: git operations
         run: |
          git status
          git config user.name rakesh
          git config user.email rakesh.pr@mayadata.io
-      - name: stage changed files
-        run: git add .
-      - name: commit changed files
-        run: git commit -m "Auto updating TODO.txt"
-      - name: Push changes  # push the output folder to your repo
+         git add .
+         git commit -m "updating contributor"
+      - name: Push changes
         uses: ad-m/github-push-action@master
         with:
          github_token: ${{ secrets.TOKEN }}
          force: true
-      #- name: fetch from master
-      #  run: git fetch origin main
-      #- name: push code to main
-      #  run: git push origin HEAD:main
-      #- name: Update resources
-       # uses: test-room-7/action-update-file@v1
-        #with:
-         #file-path: ./website/src/resources/contributors.json
-         #commit-msg: Update resources
-         #github-token: ${{ secrets.TOKEN }}
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    ##steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      #- uses: actions/checkout@v2
-
-      # Runs a single command using the runners shell
-      #- name: Run a one-line script
-       # working-directory: ./website
-       # run: npm run getContributors
