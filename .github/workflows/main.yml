@@ -1,9 +1,11 @@
-name: Fetch contributors list of openebs and write into json
+# This is a basic workflow to help you get started with Actions
+
+name: CI
 
 on:
 
   schedule:
-    - cron: '*/10 * * * *' #job schedule on midnight everyday
+    - cron: '*/10 * * * *'
   push:
     branches: [ main ]
   pull_request:
@@ -13,8 +15,9 @@ on:
 
 jobs:
   resources:
-    name: Update resource
+    name: Update resources
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js
@@ -26,13 +29,15 @@ jobs:
       - name: Run a one-line script
         working-directory: ./website
         run: npm run getContributors
-      - name: git operations
+      - name: switching from HTTPS to SSH
+        run: git remote set-url origin ${{ secrets.ssh }}
+      - name: check for changes
         run: |
          git status
          git config user.name rakesh
          git config user.email rakesh.pr@mayadata.io
          git add .
-         git commit -m "updating contributor"
+         git commit -m "Update contributor list"
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
