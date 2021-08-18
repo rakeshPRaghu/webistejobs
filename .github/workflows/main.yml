@@ -38,7 +38,7 @@ jobs:
         working-directory: ./website
         run: npm run getContributors
       - name: switching from HTTPS to SSH
-        run: git remote set-url origin ${{ secrets.TOKEN }}
+        run: git remote set-url origin ${{ secrets.ssh }}
       - name: check for changes
         run: |
          git status
