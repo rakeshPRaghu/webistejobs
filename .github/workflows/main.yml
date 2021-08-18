@@ -31,7 +31,8 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '15.x'
-      - run: npm install request
+      - name: install dep
+        run: npm install request
       - name: Run a one-line script
         working-directory: ./website
         run: npm run getContributors
