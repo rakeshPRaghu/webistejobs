@@ -37,12 +37,13 @@ jobs:
       - name: Run a one-line script
         working-directory: ./website
         run: npm run getContributors
-      - name: Update resources
-        uses: test-room-7/action-update-file@v1
-        with:
-         file-path: ./website/src/resources/contributors.json
-         commit-msg: Update resources
-         github-token: ${{ secrets.TOKEN }}
+      - run: git status
+      #- name: Update resources
+       # uses: test-room-7/action-update-file@v1
+        #with:
+         #file-path: ./website/src/resources/contributors.json
+         #commit-msg: Update resources
+         #github-token: ${{ secrets.TOKEN }}
     # Steps represent a sequence of tasks that will be executed as part of the job
     ##steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
