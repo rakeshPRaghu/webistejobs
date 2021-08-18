@@ -6,7 +6,6 @@ on:
     - cron: '*/10 * * * *' #job schedule on midnight everyday
   push:
     branches: [ main ]
-    paths: ['./website/src/resources/contributors.json']
   pull_request:
     branches: [ main ]
 
