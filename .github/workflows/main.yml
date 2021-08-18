@@ -42,8 +42,8 @@ jobs:
       - name: check for changes
         run: |
          git status
-         git config user.name github-actions
-         git config user.email github-actions@github.com
+         git config user.name rakesh
+         git config user.email rakesh.pr@mayadata.io
       - name: stage changed files
         run: git add .
       - name: commit changed files
