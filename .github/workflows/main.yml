@@ -3,15 +3,8 @@
 name: CI
 
 on:
-
   schedule:
-    - cron: '0 2 * * *'
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-
-  workflow_dispatch:
+    - cron: '1 0 * * *'
 
 jobs:
   resources:
