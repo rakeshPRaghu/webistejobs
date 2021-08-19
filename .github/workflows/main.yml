@@ -1,6 +1,4 @@
-# This is a basic workflow to help you get started with Actions
-
-name: CI
+name: Updates OpenEBS Contributors list
 
 on:
   schedule:
@@ -22,15 +20,10 @@ jobs:
       - name: Get contributors
         working-directory: ./website
         run: npm run getContributors
-      - name: check for changes
+      - name: Commit the changes
         run: |
          git status
          git config user.name rakesh
          git config user.email rakesh.pr@mayadata.io
          git add '*/contributors.json'
-         git diff-index --quiet HEAD || (git commit -a -m'[bot] update files' --allow-empty && git push -f)
-      #- name: Push changes
-       # uses: ad-m/github-push-action@master
-        #with:
-         #github_token: ${{ secrets.TOKEN }}
-         #force: true
+         git diff-index --quiet HEAD || (git commit -a -m'[bot] update contributor list' --allow-empty && git push -f)
