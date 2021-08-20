@@ -30,4 +30,4 @@ jobs:
          git config user.email rakesh.pr@mayadata.io
          git add '*/contributors.json'
          git log
-         git diff-index --quiet HEAD || (git commit -a -m'[bot] update contributor list' --allow-empty && git push -f)
+         git diff-index --quiet HEAD || (git commit -a -m'[bot] update contributor list' --allow-empty && git push -f origin main)
